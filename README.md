@@ -1,7 +1,7 @@
 # Darkdump OSINT Suite — Threat Intelligence Workstation
 
 <p align="center">
-  <img src="public/favicon.png" width="100" height="100" alt="Darkdump Threat Intelligence Logo" />
+  <img src="public/darkdump-radar.svg" width="160" height="160" alt="Darkdump Threat Intelligence Radar" />
 </p>
 
 <p align="center">
