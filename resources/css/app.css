@@ -1,0 +1,440 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-slate-950 text-slate-100 antialiased selection:bg-amber-500 selection:text-slate-950;
+        font-family: 'Instrument Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    /* Hide scroll indicator / scrollbar while maintaining full scrolling functionality */
+    html,
+    body,
+    #app {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar,
+    #app::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Edge, Opera */
+        width: 0;
+        height: 0;
+    }
+
+    button,
+    [role="button"],
+    .cartoon-btn,
+    .cartoon-pill {
+        user-select: none;
+        -webkit-user-select: none;
+    }
+}
+
+/* Universal utility to hide scrollbar while preserving scroll functionality */
+.no-scrollbar,
+.custom-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+/* Burger menu floating scroll container: hidden scroll indicator, seamless scrolling */
+.burger-menu-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.burger-menu-scroll::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+/* =========================================================================
+   CONTINUOUS BI-DIRECTIONAL 1-BY-1 CASCADE POP-UP MOTION SYSTEM
+   Smooth bouncy pop-in on entry with sequential stagger, fade-out on exit
+   ========================================================================= */
+
+@keyframes cascade-pop-up {
+    0% {
+        opacity: 0;
+        transform: translateY(28px) scale(0.93);
+        filter: blur(2px);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-3px) scale(1.015);
+        filter: blur(0px);
+    }
+    85% {
+        transform: translateY(1px) scale(0.998);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: none;
+    }
+}
+
+/* Base Hidden State */
+.reveal-item,
+.reveal-item-scale {
+    opacity: 0;
+    transform: translateY(28px) scale(0.93);
+    transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+    will-change: opacity, transform;
+}
+
+/* Active Revealed State (1-by-1 Cascading Pop-Up) */
+.reveal-item.is-revealed,
+.reveal-item-scale.is-revealed {
+    animation: cascade-pop-up 0.58s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Sequential Cascading Stagger Delays */
+.reveal-item.is-revealed.reveal-delay-50,   .reveal-item-scale.is-revealed.reveal-delay-50,
+.reveal-item.is-revealed.stagger-1,        .reveal-item-scale.is-revealed.stagger-1        { animation-delay: 50ms !important; }
+
+.reveal-item.is-revealed.reveal-delay-100,  .reveal-item-scale.is-revealed.reveal-delay-100,
+.reveal-item.is-revealed.stagger-2,        .reveal-item-scale.is-revealed.stagger-2        { animation-delay: 100ms !important; }
+
+.reveal-item.is-revealed.reveal-delay-150,  .reveal-item-scale.is-revealed.reveal-delay-150,
+.reveal-item.is-revealed.stagger-3,        .reveal-item-scale.is-revealed.stagger-3        { animation-delay: 150ms !important; }
+
+.reveal-item.is-revealed.reveal-delay-200,  .reveal-item-scale.is-revealed.reveal-delay-200,
+.reveal-item.is-revealed.stagger-4,        .reveal-item-scale.is-revealed.stagger-4        { animation-delay: 200ms !important; }
+
+.reveal-item.is-revealed.reveal-delay-250,  .reveal-item-scale.is-revealed.reveal-delay-250,
+.reveal-item.is-revealed.stagger-5,        .reveal-item-scale.is-revealed.stagger-5        { animation-delay: 250ms !important; }
+
+.reveal-item.is-revealed.reveal-delay-300,  .reveal-item-scale.is-revealed.reveal-delay-300,
+.reveal-item.is-revealed.stagger-6,        .reveal-item-scale.is-revealed.stagger-6        { animation-delay: 300ms !important; }
+
+.reveal-item.is-revealed.reveal-delay-400,  .reveal-item-scale.is-revealed.reveal-delay-400,
+.reveal-item.is-revealed.stagger-7,        .reveal-item-scale.is-revealed.stagger-7        { animation-delay: 400ms !important; }
+
+.reveal-item.is-revealed.reveal-delay-500,  .reveal-item-scale.is-revealed.reveal-delay-500,
+.reveal-item.is-revealed.stagger-8,        .reveal-item-scale.is-revealed.stagger-8        { animation-delay: 500ms !important; }
+
+/* Micro-Interactions on Interactive Elements */
+.cartoon-btn,
+.bounce-interactive {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.cartoon-btn:hover,
+.bounce-interactive:hover {
+    transform: translateY(-2px) scale(1.015);
+}
+.cartoon-btn:active,
+.bounce-interactive:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+.cartoon-card,
+.bounce-card {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.cartoon-card:hover,
+.bounce-card:hover {
+    transform: translateY(-3px) scale(1.012);
+}
+
+.cartoon-pill,
+.bounce-pill {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+.cartoon-pill:hover,
+.bounce-pill:hover {
+    transform: scale(1.04);
+}
+
+/* Modal Dialog Pop-up */
+.cartoon-modal {
+    animation: modal-pop 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes modal-pop {
+    0% {
+        opacity: 0;
+        transform: scale(0.94) translateY(12px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Ambient Chart Grid */
+.chart-grid {
+    background-image:
+        linear-gradient(rgba(142, 155, 184, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(142, 155, 184, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 100%);
+}
+
+.focus-gold:focus-visible {
+    outline: 2px solid #d4a437;
+    outline-offset: 2px;
+}
+
+/* =========================================================================
+   CYBER HUD & OSINT MATRIX MATRIX CIRCLE ANIMATIONS
+   ========================================================================= */
+
+@keyframes spin-clockwise {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spin-counter {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+@keyframes radar-sweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes radar-blip-pulse {
+    0%, 100% {
+        opacity: 0.35;
+        transform: scale(0.9);
+        box-shadow: 0 0 4px 0 rgba(245, 158, 11, 0.4);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+        box-shadow: 0 0 14px 4px rgba(245, 158, 11, 0.85);
+    }
+}
+
+@keyframes radar-ripple {
+    0% {
+        transform: scale(0.6);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(2.8);
+        opacity: 0;
+    }
+}
+
+@keyframes cyber-core-glow {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.98);
+        filter: blur(28px);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.08);
+        filter: blur(36px);
+    }
+}
+
+@keyframes gold-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@keyframes eq-bar-1 { 0%, 100% { height: 3px; } 50% { height: 14px; } }
+@keyframes eq-bar-2 { 0%, 100% { height: 12px; } 50% { height: 4px; } }
+@keyframes eq-bar-3 { 0%, 100% { height: 5px; } 50% { height: 16px; } }
+@keyframes eq-bar-4 { 0%, 100% { height: 14px; } 50% { height: 6px; } }
+@keyframes eq-bar-5 { 0%, 100% { height: 4px; } 50% { height: 12px; } }
+
+.animate-spin-slow {
+    animation: spin-clockwise 45s linear infinite;
+}
+.animate-spin-medium {
+    animation: spin-clockwise 22s linear infinite;
+}
+.animate-spin-reverse-slow {
+    animation: spin-counter 35s linear infinite;
+}
+.animate-spin-reverse-medium {
+    animation: spin-counter 18s linear infinite;
+}
+.animate-radar-sweep {
+    animation: radar-sweep 4s linear infinite;
+}
+.animate-radar-blip {
+    animation: radar-blip-pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.animate-radar-ripple {
+    animation: radar-ripple 2.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.animate-core-glow {
+    animation: cyber-core-glow 4.5s ease-in-out infinite;
+}
+.animate-shimmer {
+    background-size: 200% auto;
+    animation: gold-shimmer 6s linear infinite;
+}
+.animate-eq-1 { animation: eq-bar-1 1.1s ease-in-out infinite; }
+.animate-eq-2 { animation: eq-bar-2 0.8s ease-in-out infinite; }
+.animate-eq-3 { animation: eq-bar-3 1.4s ease-in-out infinite; }
+.animate-eq-4 { animation: eq-bar-4 0.9s ease-in-out infinite; }
+.animate-eq-5 { animation: eq-bar-5 1.2s ease-in-out infinite; }
+
+/* =========================================================================
+   CYBER RECON ACTIVE PROGRESS BAR & TELEMETRY MOTION SYSTEM
+   Continuous laser radar sweeps while loading, energetic pulse tip,
+   tactical stripes, and luminous GLOW & GLISTENING effects on 100% completion.
+   ========================================================================= */
+
+@keyframes cyber-scan-laser {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(350%);
+    }
+}
+
+@keyframes cyber-pulse-tip {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(1);
+        box-shadow: 0 0 6px 2px rgba(45, 212, 191, 0.7);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.4);
+        box-shadow: 0 0 14px 4px rgba(34, 211, 238, 0.95);
+    }
+}
+
+@keyframes cyber-complete-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+@keyframes cyber-glisten-sweep {
+    0% {
+        transform: translateX(-100%) skewX(-20deg);
+        opacity: 0;
+    }
+    8% {
+        opacity: 0.95;
+    }
+    68% {
+        transform: translateX(100%) skewX(-20deg);
+        opacity: 0.95;
+    }
+    70%, 100% {
+        transform: translateX(100%) skewX(-20deg);
+        opacity: 0;
+    }
+}
+
+@keyframes cyber-complete-drift {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 32px 0;
+    }
+}
+
+@keyframes cyber-complete-glow {
+    0%, 100% {
+        box-shadow: 0 0 6px 1px rgba(52, 211, 153, 0.25), inset 0 0 4px rgba(255, 255, 255, 0.15);
+        border-color: rgba(52, 211, 153, 0.45);
+    }
+    50% {
+        box-shadow: 0 0 12px 2px rgba(45, 212, 191, 0.4), inset 0 0 6px rgba(255, 255, 255, 0.25);
+        border-color: rgba(45, 212, 191, 0.65);
+    }
+}
+
+@keyframes cyber-tactical-stripes {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 40px 0;
+    }
+}
+
+.animate-scan-laser {
+    animation: cyber-scan-laser 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-pulse-tip {
+    animation: cyber-pulse-tip 1.2s ease-in-out infinite;
+}
+
+.animate-complete-glow {
+    animation: cyber-complete-glow 2.8s ease-in-out infinite;
+}
+
+.animate-complete-flow {
+    background: linear-gradient(
+        90deg,
+        #0d9488 0%,
+        #10b981 25%,
+        #14b8a6 50%,
+        #06b6d4 75%,
+        #0d9488 100%
+    );
+    background-size: 200% 100%;
+    animation: cyber-complete-flow 4.2s linear infinite;
+}
+
+.animate-glisten-sweep {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.25) 47%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(255, 255, 255, 0.25) 53%,
+        transparent 60%,
+        transparent 100%
+    );
+    animation: cyber-glisten-sweep 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-complete-drift {
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.08) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.08) 50%,
+        rgba(255, 255, 255, 0.08) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 16px 16px;
+    animation: cyber-complete-drift 2.5s linear infinite;
+}
+
+.animate-tactical-stripes {
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 20px 20px;
+    animation: cyber-tactical-stripes 1s linear infinite;
+}
+
